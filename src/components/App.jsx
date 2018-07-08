@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import "../css/styles.css";
+//import "../css/styles.css";
+import projectImg from "../img/project2.jpg";
 
 class App extends Component {
   render() {
     return (
       <div>
-        <img className="imgStyle" src="img/project2.jpg" alt="" />
+        <a href="#" className="btn btn--white btn--animated">
+          Discover Tours
+        </a>
       </div>
     );
   }
