@@ -20,8 +20,10 @@
   "homepage": "https://github.com/dnperera/React-Youtube-App#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "lodash": "^4.17.10",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "youtube-api-search": "0.0.5"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
