@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 import YTSearch from "youtube-api-search";
 import SearchBar from "./SearchBar";
-import VideoList from "./VideoList";
+import VideoList from "../containers/VideoList";
 import VideoDetail from "./VideoDetail";
 import { API_Key } from "../../keys";
 
@@ -14,7 +14,6 @@ class App extends Component {
       selectedVideo: null,
       term: ""
     };
-    console.log("youtube key --", API_Key);
     this.videoSearch("Sri Lanka");
   }
   videoSearch(term) {
