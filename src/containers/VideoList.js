@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { selectBook } from "../actions/types";
+
 class VideoList extends Component {
   renderList() {
     return this.props.videos.map((video, index) => {
       return (
-        <li key={index} className="list-group-item">
+        <li
+          key={index}
+          className="list-group-item"
+          onClick={e => this.props.selectBook(video)}
+        >
           {video.title}
         </li>
       );
@@ -18,7 +24,10 @@ class VideoList extends Component {
 const mapStateToProps = state => {
   return { videos: state.videos };
 };
-export default connect(mapStateToProps)(VideoList);
+export default connect(
+  mapStateToProps,
+  { selectBook }
+)(VideoList);
 // const VideoList = props => {
 //   const videoItems = props.videos.map(video => {
 //     return (

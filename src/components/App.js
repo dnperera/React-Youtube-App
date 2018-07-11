@@ -14,7 +14,7 @@ class App extends Component {
       selectedVideo: null,
       term: ""
     };
-    this.videoSearch("Sri Lanka");
+    this.videoSearch("Docker");
   }
   videoSearch(term) {
     //Grab  videos from youtube and update the state
