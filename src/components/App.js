@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import YTSearch from "youtube-api-search";
 import SearchBar from "./SearchBar";
-import VideoList from "../containers/VideoList";
+import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
-import { API_Key } from "../../keys";
+import { fetchVideos } from "../actions/fetch-videos";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class App extends Component {
   constructor(props) {
@@ -17,23 +18,16 @@ class App extends Component {
     this.videoSearch("Docker");
   }
   videoSearch(term) {
-    //Grab  videos from youtube and update the state
-    YTSearch(
-      {
-        key: API_Key,
-        term: term
-      },
-      videos => {
-        if (videos) {
-          this.setState({
-            videos: videos,
-            selectedVideo: videos[0]
-          });
-        } else {
-          this.setState({ videos: [] });
-        }
-      }
-    );
+    this.props.fetchVideos(term);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.videos) {
+      this.setState({
+        videos: nextProps.videos,
+        selectedVideo: nextProps.videos[0]
+      });
+    }
   }
   render() {
     const videoSearch = _.debounce(term => {
@@ -41,21 +35,27 @@ class App extends Component {
     }, 500);
     return (
       <div>
-        <div className="row">
-          <div className="col-md-10">
-            <SearchBar onSearchTermChange={videoSearch} />
+        <SearchBar onSearchTermChange={videoSearch} />
+        <div className="container">
+          <div className="row bg-light  pt-2 px-4">
+            <VideoDetail video={this.state.selectedVideo} />
+            <VideoList
+              videos={this.state.videos}
+              onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
+            />
           </div>
-        </div>
-        <div className="row">
-          <VideoDetail video={this.state.selectedVideo} />
-          <VideoList
-            videos={this.state.videos}
-            onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
-          />
         </div>
       </div>
     );
   }
 }
-
-export default App;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchVideos }, dispatch);
+}
+function mapStateToProps({ videos }) {
+  return { videos };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -11,6 +11,10 @@ const VideoList = props => {
       />
     );
   });
-  return <ul className="col-md-8 list-group">{videoItems}</ul>;
+  return (
+    <div className="col-md-4 col-sm-12 " Style="height: 70vh">
+      <ul className="video-list list-group">{videoItems}</ul>
+    </div>
+  );
 };
 export default VideoList;
